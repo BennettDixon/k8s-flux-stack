@@ -1,5 +1,5 @@
 ## K8s Flux Cluster(s) Starter
-A starter template for deploying and managing Kubernetes cluster(s) using FluxCD for GitOps, integrated with essential tools like Harbor (artifact registry), Prometheus & Grafana (monitoring and visualization), and Terraform for managing secrets on AWS. This repository provides a structured approach to managing your Kubernetes infrastructure and applications declaratively through Git.
+A starter template for deploying and managing Kubernetes cluster(s) using FluxCD for GitOps, integrated with essential tools like JupyterHub, Harbor (artifact registry), Prometheus & Grafana (monitoring and visualization), and Terraform for managing secrets on AWS. This repository provides a structured approach to managing your Kubernetes infrastructure and applications declaratively through Git.
 
 This project and its README are a constant work in progress, feel free to submit issues, pull requests, and suggestions!
 
@@ -8,6 +8,7 @@ This project and its README are a constant work in progress, feel free to submit
 - **Flux GitOps:** Continuous deployment and synchronization with Git.
 - **Harbor:** Secure and efficient container image registry.
 - **Prometheus & Grafana:** Robust monitoring and visualization stack.
+- **JupyterHub:** Interactive notebook environment for data science.
 - **Terraform with AWS:** Infrastructure as Code for managing secrets and AWS resources.
 - **Modular Configuration:** Organized manifests and configurations for scalability.
 - **Dependency Management:** Ensures the correct order of resource deployment using Flux Kustomizations.
@@ -19,10 +20,13 @@ k8s-flux-starter/
 |   ├── base/                           # Base applications manifests
 |   |   ├── harbor/                     # Harbor deployment manifests
 |   |   ├── kube-prometheus-stack/      # Monitoring via Prometheus & Grafana
+|   |   └── jupyterhub/                 # JupyterHub deployment manifests
 │   ├── production/                     # Production applications manifests
+│   └── development/                    # Development applications manifests
 │   └── secrets/                        # Application secrets manifests
 ├── clusters/
 │   └── production/                     # High-level cluster configuration for Flux
+│   └── development/                    # High-level cluster configuration for Flux
 ├── infrastructure/
 │   ├── controllers/                    # Infrastructure controllers manifests
 │   ├── configs/                        # Infrastructure configurations manifests
@@ -181,8 +185,9 @@ The `clusters` folder contains the main configuration for each cluster managed b
     Should display all the resources that Flux has deployed in a consistent state.
 
 #### 9. Configure DNS
-We need to configure DNS records for Harbor and Grafana to point to our ingress controller.
+We need to configure DNS records for JupyterHub, Harbor, and Grafana to point to our ingress controller.
 
+- `/apps/base/<cluster>/jupyterhub-values.yaml` contains the DNS configuration for the JupyterHub Ingress
 - `/apps/base/<cluster>/harbor-values.yaml` contains the DNS configuration for the Harbor Ingress
 - `/infrastructure/network/grafana-ingress.yaml` contains the DNS configuration for the Grafana Ingress
 
@@ -206,6 +211,13 @@ Domain: <your-domain> # e.g internal
 Type: A
 Value: <your-ingress-ip> # e.g 10.0.10.42
 Description: Grafana Monitoring Dashboard
+```
+```yaml
+Host: jupyter
+Domain: <your-domain> # e.g internal
+Type: A
+Value: <your-ingress-ip> # e.g 10.0.10.42
+Description: JupyterHub
 ```
 **Note**: The ingress IP should be the same for both records, only change the Host to allow the ingress service to resolve correctly.
 
