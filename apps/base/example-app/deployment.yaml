@@ -1,0 +1,30 @@
+# /apps/base/my-app/my-app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-app
+  namespace: example-app
+spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        app: example-app
+  template:
+      metadata:
+          labels:
+            app: example-app
+      spec:
+        imagePullSecrets:
+          # This is the secret for the example-app registry
+          - name: example-app-registry-harbor-docker-login
+          # Technically we don't need this default secret yet;
+          # but we are using as an example how you would overlay 
+          # the secret namespaced in the `example-app` namespace
+          # (see apps/overlays/example-app/)
+          - name: default-harbor-docker-login
+          
+        containers:
+          - name: example-app
+            image: harbor.internal/example-app-registry/example-app:latest
+            ports:
+              - containerPort: 80

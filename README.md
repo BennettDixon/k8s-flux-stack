@@ -361,6 +361,26 @@ git push origin main
 - AWS S3 (Terraform State Store)
 
 
+## Configure Harbor
+This section is a work in progress, check back soon!
+
+1. Setup a non root user account in Harbor
+2. Configure a docker-pull account in Harbor
+3. Setup a registry and assign the docker-pull account to the registry
+4. Add the docker-pull account information to the tf vars for external-secrets
+5. Test the setup on your dev machine:
+    1. Download the Harbor CA certificate for your registry
+    2. Install the Harbor CA certificate on your dev machine
+    3. Run `docker login harbor.<your-domain.com>`
+    4. Build the test app and tag it:
+        `docker build -t harbor.<your-domain.com>/test-registry/test-app .`
+    5. Push the image to your registry: 
+        `docker push harbor.<your-domain.com>/test-registry/test-app:latest`
+    6. If this succeeds you will see the image available in your harbor dashboard, if this is the case we can move onto testing authentication with our cluster(s).
+5. Add the registry CA certificate to your cluster nodes (main & worker nodes)
+    - Make sure to restart the ca-certificates.service on your nodes `sudo updat-ca-certificates`
+    - You may need to restart the node itself depending on your OS `sudo reboot`
+
 
 ## Roadmap
 - Improve documentation
