@@ -3,4 +3,6 @@ kind: Kustomization
 namespace: example-app
 resources:
     - namespace.yaml
-    - deployment.yaml
+    # Deployment for the example app is disabled for now, if you want to test the 
+    # Example app re-enable it.
+    # - deployment.yaml

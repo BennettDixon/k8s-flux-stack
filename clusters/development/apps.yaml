@@ -18,27 +18,24 @@ spec:
   timeout: 5m0s
 ---
 # SETUP APP OVERLAYS NEXT
-# Setup personal-site overlays
-# Commented out for now since the Example App is disabled
-# Out of the box
-#####
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: personal-site-overlay
-#   namespace: flux-system
-# spec:
-#   interval: 10m0s
-#   dependsOn:
-#     - name: app-secrets
-#   sourceRef:
-#     kind: GitRepository
-#     name: flux-system
-#   path: ./apps/overlays/personal-site
-#   prune: true
-#   wait: true
-#   timeout: 5m0s
-#####
+# Setup example-app overlays
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: example-app-overlay
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: app-secrets
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/overlays/example-app
+  prune: true
+  wait: true
+  timeout: 5m0s
+
 ---
 ######
 # ADD MORE OVERLAYS AS NEEDED

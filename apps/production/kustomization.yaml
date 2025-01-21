@@ -4,7 +4,7 @@ resources:
   - ../base/harbor
   - ../base/kube-prometheus-stack
   - ../base/jupyterhub
-  # - ../base/example-app
+  - ../base/example-app
 patches:
   - path: harbor-values.yaml
     target:
