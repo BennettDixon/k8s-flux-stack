@@ -374,7 +374,7 @@ This section is a work in progress, check back soon!
     3. Run `docker login harbor.<your-domain.com>`
     4. Build the test app and tag it:
         `docker build -t harbor.<your-domain.com>/test-registry/test-app .`
-    5. Push the image to your registry: 
+    5. Push the image to your registry:  
         `docker push harbor.<your-domain.com>/test-registry/test-app:latest`
     6. If this succeeds you will see the image available in your harbor dashboard, if this is the case we can move onto testing authentication with our cluster(s).
 5. Add the registry CA certificate to your cluster nodes (main & worker nodes)
@@ -384,6 +384,8 @@ This section is a work in progress, check back soon!
 
 ## Roadmap
 - Improve documentation
+    - Add more info on the terraform code
+    - Add more info on CA certificates for private registries with the k8s cluster
 - Add pre-commit hooks
 - Implement RBAC & Network policies to restrict cross-namespace access
 - Implement automated testing for manifests
