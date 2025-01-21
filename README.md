@@ -20,9 +20,11 @@ k8s-flux-starter/
 |   ├── base/                           # Base applications manifests
 |   |   ├── harbor/                     # Harbor deployment manifests
 |   |   ├── kube-prometheus-stack/      # Monitoring via Prometheus & Grafana
-|   |   └── jupyterhub/                 # JupyterHub deployment manifests
+|   |   ├── jupyterhub/                 # JupyterHub deployment manifests
+|   |   └── example-app/                # An example app utilzing the Harbor registry
+|   ├── overlays/                       # Kustomize Overlays for applications
 │   ├── production/                     # Production applications manifests
-│   └── development/                    # Development applications manifests
+│   ├── development/                    # Development applications manifests
 │   └── secrets/                        # Application secrets manifests
 ├── clusters/
 │   └── production/                     # High-level cluster configuration for Flux
@@ -39,6 +41,7 @@ k8s-flux-starter/
 |   └── variables.tf                    # Terraform variables
 |   └── terraform.tfvars.empty          # Terraform variables placeholder (sensitive once moved)
 |   └── state.config.empty              # Terraform state configuration placeholder (sensitive once moved)
+├── scripts/                            # Setup scripts & tools
 ├── README.md       
 └── ...                                 # Additional configurations and scripts
 
