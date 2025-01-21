@@ -3,5 +3,5 @@ FROM node:14-alpine
 WORKDIR /app
 COPY . .
 RUN npm install
-EXPOSE 80
-CMD ["node", "app.js"]
+EXPOSE 4321
+CMD ["node", "app.js", "--port", "4321"]
