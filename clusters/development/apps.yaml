@@ -1,4 +1,22 @@
 ---
+# Setup namespaces first
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app-namespaces
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: infra-configs
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/namespaces
+  prune: true
+  wait: true
+  timeout: 5m0s
+---
 # Setup app secrets after infra is setup (secrets manager is ready)
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
